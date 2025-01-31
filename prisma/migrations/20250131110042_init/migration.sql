@@ -5,7 +5,7 @@ CREATE TABLE "User" (
     "lastName" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "verifyEmail" BOOLEAN NOT NULL DEFAULT false,
+    "verifyEmail" BOOLEAN NOT NULL DEFAULT true,
     "password" TEXT NOT NULL,
     "confirmPassword" TEXT NOT NULL,
     "dob" TIMESTAMP(3) NOT NULL,
@@ -17,6 +17,9 @@ CREATE TABLE "User" (
     "appleAuthToken" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "latitude" DOUBLE PRECISION NOT NULL,
+    "longitude" DOUBLE PRECISION NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -25,8 +28,10 @@ CREATE TABLE "User" (
 CREATE TABLE "Sport" (
     "id" SERIAL NOT NULL,
     "sportName" TEXT NOT NULL,
+    "icon" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Sport_pkey" PRIMARY KEY ("id")
 );
@@ -38,15 +43,19 @@ CREATE TABLE "BeltLevel" (
     "colorCode" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "BeltLevel_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_phoneNumber_key" ON "User"("phoneNumber");
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+CREATE UNIQUE INDEX "Sport_sportName_icon_key" ON "Sport"("sportName", "icon");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "BeltLevel_levelName_colorCode_key" ON "BeltLevel"("levelName", "colorCode");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_sportId_fkey" FOREIGN KEY ("sportId") REFERENCES "Sport"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
