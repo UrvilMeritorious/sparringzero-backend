@@ -22,6 +22,7 @@ const usersServices = {
           ...userRequest,
           dob: formattedDob,
           password: await hashPassword(userRequest.password),
+          confirmPassword: await hashPassword(userRequest.confirmPassword),
         },
       });
 
@@ -61,7 +62,37 @@ const usersServices = {
   fetchUserDetails: async () => {
     try {
       const allUsers = await prisma.user.findMany({
-        where: { verifyEmail: true, isDeleted: false },
+        where: {
+          verifyEmail: true,
+          isDeleted: false,
+        },
+        select: {
+          firstName: true,
+          lastName: true,
+          phoneNumber: true,
+          email: true,
+          dob: true,
+          weight: true,
+          profilePhoto: true,
+          googleAuthToken: true,
+          appleAuthToken: true,
+          latitude: true,
+          longitude: true,
+          beltLevels: {
+            select: {
+              levelName: true,
+              colorCode: true,
+              isDeleted: true,
+            },
+          },
+          sport: {
+            select: {
+              sportName: true,
+              icon: true,
+              isDeleted: true,
+            },
+          },
+        },
       });
       if (!allUsers.length) throw new Error(`User not found`);
       return allUsers;
@@ -74,6 +105,33 @@ const usersServices = {
     try {
       const usersByEmail = await prisma.user.findMany({
         where: { email: email, verifyEmail: true, isDeleted: false },
+        select: {
+          firstName: true,
+          lastName: true,
+          phoneNumber: true,
+          email: true,
+          dob: true,
+          weight: true,
+          profilePhoto: true,
+          googleAuthToken: true,
+          appleAuthToken: true,
+          latitude: true,
+          longitude: true,
+          beltLevels: {
+            select: {
+              levelName: true,
+              colorCode: true,
+              isDeleted: true,
+            },
+          },
+          sport: {
+            select: {
+              sportName: true,
+              icon: true,
+              isDeleted: true,
+            },
+          },
+        },
       });
       if (!usersByEmail.length) throw new Error(`User not found`);
       return usersByEmail;
@@ -91,7 +149,8 @@ const usersServices = {
         where: { email: email, verifyEmail: true, isDeleted: false },
       });
 
-      if (!usersByEmail) throw new Error(`User not found`);
+      if (!usersByEmail)
+        throw new Error(`User with the email ${email} not found`);
 
       return await prisma.user.update({
         where: { email: email },

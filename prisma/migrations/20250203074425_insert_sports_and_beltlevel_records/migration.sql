@@ -22,7 +22,7 @@ VALUES
 </svg>',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
-    ) ON CONFLICT ("sportName", "icon") DO NOTHING;
+    ) ON CONFLICT ("sportName") DO NOTHING;
 
 -----------------------------------------------------------------------------------------------
 -- CHECK BELTS RECORDS ARE EXISTS BEFORE INSERTING
@@ -63,4 +63,4 @@ VALUES
         '<svg width="45" height="8" viewBox="0 0 45 8" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="45" height="8" fill="black"/></svg>',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
-    ) ON CONFLICT ("levelName", "colorCode") DO NOTHING;
+    ) ON CONFLICT ("levelName") DO NOTHING;

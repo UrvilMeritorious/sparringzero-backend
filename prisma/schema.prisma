@@ -48,7 +48,7 @@ model Sport {
   updatedAt DateTime @updatedAt
   isDeleted Boolean  @default(false)
 
-  @@unique([sportName, icon])
+  @@unique([sportName])
 }
 
 model BeltLevel {
@@ -60,5 +60,5 @@ model BeltLevel {
   updatedAt DateTime @updatedAt
   isDeleted Boolean  @default(false)
 
-  @@unique([levelName, colorCode])
+  @@unique([levelName])
 }

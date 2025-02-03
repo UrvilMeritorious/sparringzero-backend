@@ -52,10 +52,10 @@ CREATE TABLE "BeltLevel" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Sport_sportName_icon_key" ON "Sport"("sportName", "icon");
+CREATE UNIQUE INDEX "Sport_sportName_key" ON "Sport"("sportName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "BeltLevel_levelName_colorCode_key" ON "BeltLevel"("levelName", "colorCode");
+CREATE UNIQUE INDEX "BeltLevel_levelName_key" ON "BeltLevel"("levelName");
 
 -- AddForeignKey
 ALTER TABLE "User" ADD CONSTRAINT "User_sportId_fkey" FOREIGN KEY ("sportId") REFERENCES "Sport"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

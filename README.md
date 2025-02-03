@@ -24,6 +24,7 @@ Ensure you have the following installed on your system:
 - Node.js (Latest LTS version recommended)
 - PostgreSQL
 - Prisma CLI
+- Zod
 - Nodemon (for development mode)
 
 ## Installation
@@ -42,7 +43,7 @@ Ensure you have the following installed on your system:
    ```
 
 3. Set up the environment variables:
-   Create a `.env` file in the root directory and add the following:
+   Create a `.env` file from `.env.example` file in the root directory and add the following:
 
    ```env
    PORT=3000
@@ -87,15 +88,30 @@ npm run dev
 
 ## Users
 
-- /api/users/register
-- /api//users/login
-- /api/users/fetchAllUsers
-- /api/users/fetchUsersByEmail?email=Email_Address
+- `{{base_url}}/api/users/register`
+- `{{base_url}}/api/users/login`
+- `{{base_url}}/api/users/fetchAllUsers`
+- `{{base_url}}/api/users/fetchUsersByEmail?email=Email_Address`
 
-  ## Update and Delete
+## Sports and BeltLevel
 
-  - /api/users/updateUser?email=Email_Address
-    - Payload: {}
+### Sports
+
+- `{{base_url}}/api/sports/fetchSportsDetails`
+- `{{base_url}}/api/sports/createSport`
+
+### BeletLevels
+
+- `{{base_url}}/api/belts/fetchBeltLevels`
+- `{{base_url}}/api/belts/createBelt`
+
+## Update and Delete
+
+- `{{base_url}}/api/users/updateUser?email={Email_Address}`
+- `{{base_url}}/api/sports/updateSportsDetails?sportName={sportName}`
+- `{{base_url}}/api/belts/updateBeltLevelDetails?levelName={levelName}`
+  - Payload:
+    - What ever the fields which you want to update
 
 # License
 
